@@ -6,8 +6,8 @@
         "__class" : "CodeComponentNode",
         "aspectRatio" : null,
         "bottom" : null,
-        "centerAnchorX" : 0,
-        "centerAnchorY" : 0,
+        "centerAnchorX" : 0.5,
+        "centerAnchorY" : 0.5,
         "children" : [
 
         ],
