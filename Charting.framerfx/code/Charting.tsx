@@ -58,7 +58,70 @@ export const Charting = function(props) {
   const [series, setSeries] = React.useState(makeSeries(seriesCount, points));
   const [mounted, setMounted] = React.useState(false);
 
-  const options = {};
+  const options = {
+    colors:
+      colors.length > 0 && palette == "custom"
+        ? colors
+            .map(item => {
+              if (item.startsWith("var("))
+                // this is needed for handling Shared Colors in Framer X
+                return item.match(/rgba?\(.*\d\)/).pop();
+              return item;
+            })
+            .map(d => Color.toHexString(Color(d)))
+        : undefined,
+    theme: {
+      palette: palette
+    },
+    chart: {
+      id: "dogchart",
+      type: chartType,
+      stacked: isStacked,
+      toolbar: {
+        show: showToolbar
+      },
+      events: {
+        mounted: function(chartContext, config) {
+          setMounted(true);
+        },
+        dataPointSelection: props.onDataPointSelection,
+        dataPointMouseEnter: props.onDataPointMouseEnter,
+        dataPointMouseLeave: props.onDataPointMouseLeave
+      }
+    },
+    plotOptions: {
+      bar: {
+        horizontal: isHorizontal
+      }
+    },
+    fill: {
+      opacity: fillOpacity,
+      type: fillType
+    },
+    stroke: {
+      show: showStroke,
+      curve: strokeCurve,
+      width: stroke
+    },
+    xaxis: {
+      type: "datetime",
+      labels: {
+        show: showXaxis
+      }
+    },
+    yaxis: {
+      show: showYaxis
+    },
+    dataLabels: {
+      enabled: false
+    },
+    noData: {
+      text: "No Data"
+    },
+    legend: {
+      show: showLegend
+    }
+  };
 
   React.useEffect(() => {
     setSeries(makeSeries(seriesCount, points));
