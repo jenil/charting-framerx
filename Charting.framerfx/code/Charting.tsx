@@ -129,6 +129,13 @@ export const Charting = function(props) {
 
   return (
     <>
+      <Frame visible={!mounted} width="100%" height="100%" background="white">
+        <svg viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="13">
+            🐶📊
+          </text>
+        </svg>
+      </Frame>
       <Frame width={width} height={height} background="none">
         <Chart
           options={options}
